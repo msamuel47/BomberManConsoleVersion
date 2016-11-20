@@ -11,7 +11,7 @@ namespace Application_Bomberman
         OBJECT_NOTHING,
         OBJECT_WALL,
         OBJECT_PLAYER,
-        OBJECT_ENEMY,
+        OBJECT_AI_ENEMY,
         OBJECT_BOMB,
         
     }
