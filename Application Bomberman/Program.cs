@@ -16,11 +16,11 @@ namespace Application_Bomberman
 
         private const int nb_lignes = 15;
         private const int nb_colones = 70;
-        private const int difficulteIA = 5; // plus le chiffre est élévé plus le jeu est facile
+        private const int difficulteIA = 10; // plus le chiffre est élévé plus le jeu est facile
         private static int compteurDeTour = 0; //Pour compter chaque tour
         private static int positionJoueurX = 0;
         private static int positionJoueurY = 0;
-        private const int nb_mursAleatoireAGenerer = 250;
+        private const int nb_mursAleatoireAGenerer = 0;
         private const int nb_enemies = 10;
 
         private static GameObject[,] tableauDeJeu = new GameObject[nb_colones, nb_lignes];
@@ -30,7 +30,7 @@ namespace Application_Bomberman
 
         static void Main(string[] args)
         {
-            positionJoueurX = tableauDeJeu.GetLength(0)/2;
+            positionJoueurX = tableauDeJeu.GetLength(0)/2; // Place le joueur au centre de la cartea
             positionJoueurY = tableauDeJeu.GetLength(1)/2;
             Console.WindowWidth = nb_colones + 1;
             Console.WindowHeight = nb_lignes + 1;
@@ -305,36 +305,41 @@ namespace Application_Bomberman
                 compteurDeTour = 0;
            
                 
-                for (int i = 0; i < tableauDeJeu.GetLength(0); i++) //Scan y
+                for (int i = 0; i < tableauDeJeu.GetLength(0); i++) //Scan X
                 {
                     
-                    for (int j = 0; j < tableauDeJeu.GetLength(1); j++) //Scan X
+                    for (int j = 0; j < tableauDeJeu.GetLength(1); j++) //Scan Y
                     {
-                       
                         if (tableauDeJeu[i, j] == GameObject.OBJECT_AI_ENEMY)
                         {
-                            positionIAY = i;
-                            positionIAX = j;
                             tableauDeJeu[i,j] = GameObject.OBJECT_NOTHING;
+                            positionIAY = j;
+                            positionIAX = i;
                             
-                            if (positionJoueurX > j)
+                            if (j < positionJoueurY)
                             {
-                                positionIAX += 1;
-                                
+                                positionIAY = j + 1;
                             }
-                            if (positionJoueurX < j)
+                            if (j > positionJoueurY)
                             {
-                                positionIAX -= 1;
-                                
+                                positionIAY = j - 1;
                             }
-                            tableauDeJeu[positionIAY, positionIAX] = GameObject.OBJECT_AI_ENEMY;
-
-
+                            if (j == positionJoueurY)
+                            {
+                                if (positionIAX > positionJoueurX)
+                                {
+                                    positionIAX = i - 1;
+                                }
+                                if (positionIAX < positionJoueurX)
+                                {
+                                    positionIAX = i + 1;
+                                }
+                            }
+                            tableauDeJeu[positionIAX, positionIAY] = GameObject.OBJECT_AI_ENEMY;
                         }
                         
                     }
                     
-
                 }
             }
         }

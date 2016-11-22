@@ -13,6 +13,7 @@ namespace Application_Bomberman
         OBJECT_PLAYER,
         OBJECT_AI_ENEMY,
         OBJECT_BOMB,
+        OBJECT_OUTTER_WALL,
         
     }
 }
