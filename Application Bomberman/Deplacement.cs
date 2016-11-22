@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application_Bomberman
 {
-
+    /// <summary>
+    /// Object that serv as moving position
+    /// </summary>
     enum Deplacement
     {
         MOVE_NOMOVE,

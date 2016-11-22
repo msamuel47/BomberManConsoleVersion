@@ -17,7 +17,7 @@ namespace Application_Bomberman
 
         private const int nb_lignes = 15;
         private const int nb_colones = 70;
-        private const int difficulteIA = 10; // plus le chiffre est élévé plus le jeu est facile
+        private const int difficulteIA = 5; // plus le chiffre est élévé plus le jeu est facile
         private static int compteurDeTour = 0; //Pour compter chaque tour
         private static int positionJoueurX = 0;
         private static int positionJoueurY = 0;
@@ -315,25 +315,23 @@ namespace Application_Bomberman
                             tableauDeJeu[i, j] = GameObject.OBJECT_NOTHING; //Erease is first location for refresh
                             int positionIAY = j; //Assign variable to memorise the AI position for modification
                             int positionIAX = i;
-                            if (positionIAY < positionJoueurY) // if the AI is under the player
+                            if (positionIAY > positionJoueurY) //If the AI is below the player
                             {
-                                positionIAY = j + 1; //Increase is position from 1
+                                positionIAY = positionIAY - 1;  //Decrease is position from 1
                             }
-                            if (positionIAY > positionJoueurY) //If the AI is over the player
-                            {
-                                positionIAY = j - 1;  //Decrease is position from 1
-                            }
-                            if (positionIAY == positionJoueurY)  //If the AI is at the same elevation of the player
-                            { //Scan for his horizontal situation
-                                if (positionIAX > positionJoueurX)  //If the AI is at the right of the player
-                                {
-                                    positionIAX = i - 1;  //Move it left 
-                                }
-                                if (positionIAX < positionJoueurX) // If the AI is at the left of the player
-                                {
-                                    positionIAX = i + 1; //Move it right
-                                }
-                            }
+                            
+
+                            //if (positionIAY == positionJoueurY)  //If the AI is at the same elevation of the player
+                            //{ //Scan for his horizontal situation
+                            //    if (positionIAX > positionJoueurX)  //If the AI is at the right of the player
+                            //    {
+                            //        positionIAX = i - 1;  //Move it left 
+                            //    }
+                            //    if (positionIAX < positionJoueurX) // If the AI is at the left of the player
+                            //    {
+                            //        positionIAX = i + 1; //Move it right
+                            //    }
+                            //}
                             tableauDeJeu[positionIAX, positionIAY] = GameObject.OBJECT_AI_ENEMY; //Assign the new position
                         }                                                                        // To the enemy
                     }

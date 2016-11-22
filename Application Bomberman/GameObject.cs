@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application_Bomberman
 {
+    /// <summary>
+    /// Illustrate the object in the game
+    /// </summary>
     enum GameObject
     {
         OBJECT_NOTHING,
@@ -13,7 +16,5 @@ namespace Application_Bomberman
         OBJECT_PLAYER,
         OBJECT_AI_ENEMY,
         OBJECT_BOMB,
-        OBJECT_OUTTER_WALL,
-        
     }
 }
