@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
@@ -15,14 +16,14 @@ namespace Application_Bomberman
 
         private static Random rnd = new Random(); // Create a new random
 
-        private const int nb_lignes = 15;
-        private const int nb_colones = 70;
+        private const int nb_lignes = 9;
+        private const int nb_colones = 15;
         private const int difficulteIA = 5; // plus le chiffre est élévé plus le jeu est facile
         private static int compteurDeTour = 0; //Pour compter chaque tour
         private static int positionJoueurX = 0;
         private static int positionJoueurY = 0;
         private const int nb_mursAleatoireAGenerer = 0;
-        private const int nb_enemies = 10;
+        private const int nb_enemies = 1;
 
         private static GameObject[,] tableauDeJeu = new GameObject[nb_colones, nb_lignes];
             //Declaration du tableau de jeu
@@ -284,7 +285,7 @@ namespace Application_Bomberman
                                tableauDeJeu[positionJoueurX - 1, positionJoueurY - 1] == GameObject.OBJECT_AI_ENEMY ||
                                tableauDeJeu[positionJoueurX - 1, positionJoueurY] == GameObject.OBJECT_AI_ENEMY ||
                                tableauDeJeu[positionJoueurX - 1, positionJoueurY + 1] == GameObject.OBJECT_AI_ENEMY);
-            return condition;
+            return true;
         }
 
         static void SignalerFinDePartie()
@@ -294,7 +295,7 @@ namespace Application_Bomberman
         }
 
         /// <summary>
-        /// Use to move every AI on the game by using the position of the player
+        /// Use to move every AI on the game by using the position of the player this method is using a shared 2D Array
         /// this method is bugged when the player is UNDER the enemies ... They all disapeard for no reason and
         /// I am not able to find what is wrond with it
         /// </summary>
@@ -310,16 +311,20 @@ namespace Application_Bomberman
                     
                     for (int j = 0; j < tableauDeJeu.GetLength(1); j++) //Scan Y
                     {
+                        int positionIAY = j; //Assign variable to memorise the AI position for modification
+                        int positionIAX = i;
                         if (tableauDeJeu[i, j] == GameObject.OBJECT_AI_ENEMY) // If enemy found in the array scan
                         {
                             tableauDeJeu[i, j] = GameObject.OBJECT_NOTHING; //Erease is first location for refresh
-                            int positionIAY = j; //Assign variable to memorise the AI position for modification
-                            int positionIAX = i;
+                            //Assign variable to memorise the AI position for modification
                             if (positionIAY > positionJoueurY) //If the AI is below the player
-                            {
-                                positionIAY = positionIAY - 1;  //Decrease is position from 1
-                            }
-                            
+                                {
+                                    positionIAY--; //Decrease is position from 1
+                                }
+                            else if (positionIAY < positionJoueurY)
+                                {
+                                    positionIAY++; //Increase is position from 1
+                                }
 
                             //if (positionIAY == positionJoueurY)  //If the AI is at the same elevation of the player
                             //{ //Scan for his horizontal situation
