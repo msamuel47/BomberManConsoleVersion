@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
@@ -293,13 +294,12 @@ namespace Application_Bomberman
         }
 
         /// <summary>
-        /// 
+        /// Use to move every AI on the game by using the position of the player
+        /// this method is bugged when the player is UNDER the enemies ... They all disapeard for no reason and
+        /// I am not able to find what is wrond with it
         /// </summary>
-        /// <param name="compteurTour"></param>
         static void DeplacerIA()
         {
-            int positionIAX = 0;
-            int positionIAY = 0;
             if (compteurDeTour >= difficulteIA)
             {
                 compteurDeTour = 0;
@@ -310,34 +310,32 @@ namespace Application_Bomberman
                     
                     for (int j = 0; j < tableauDeJeu.GetLength(1); j++) //Scan Y
                     {
-                        if (tableauDeJeu[i, j] == GameObject.OBJECT_AI_ENEMY)
+                        if (tableauDeJeu[i, j] == GameObject.OBJECT_AI_ENEMY) // If enemy found in the array scan
                         {
-                            tableauDeJeu[i,j] = GameObject.OBJECT_NOTHING;
-                            positionIAY = j;
-                            positionIAX = i;
-                            
-                            if (j < positionJoueurY)
+                            tableauDeJeu[i, j] = GameObject.OBJECT_NOTHING; //Erease is first location for refresh
+                            int positionIAY = j; //Assign variable to memorise the AI position for modification
+                            int positionIAX = i;
+                            if (positionIAY < positionJoueurY) // if the AI is under the player
                             {
-                                positionIAY = j + 1;
+                                positionIAY = j + 1; //Increase is position from 1
                             }
-                            if (j > positionJoueurY)
+                            if (positionIAY > positionJoueurY) //If the AI is over the player
                             {
-                                positionIAY = j - 1;
+                                positionIAY = j - 1;  //Decrease is position from 1
                             }
-                            if (j == positionJoueurY)
-                            {
-                                if (positionIAX > positionJoueurX)
+                            if (positionIAY == positionJoueurY)  //If the AI is at the same elevation of the player
+                            { //Scan for his horizontal situation
+                                if (positionIAX > positionJoueurX)  //If the AI is at the right of the player
                                 {
-                                    positionIAX = i - 1;
+                                    positionIAX = i - 1;  //Move it left 
                                 }
-                                if (positionIAX < positionJoueurX)
+                                if (positionIAX < positionJoueurX) // If the AI is at the left of the player
                                 {
-                                    positionIAX = i + 1;
+                                    positionIAX = i + 1; //Move it right
                                 }
                             }
-                            tableauDeJeu[positionIAX, positionIAY] = GameObject.OBJECT_AI_ENEMY;
-                        }
-                        
+                            tableauDeJeu[positionIAX, positionIAY] = GameObject.OBJECT_AI_ENEMY; //Assign the new position
+                        }                                                                        // To the enemy
                     }
                     
                 }
