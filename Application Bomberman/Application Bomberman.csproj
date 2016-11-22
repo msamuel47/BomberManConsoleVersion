@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Deplacement.cs" />
+    <Compile Include="EtatTableau.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
