@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 
 namespace Application_Bomberman
@@ -285,6 +286,7 @@ namespace Application_Bomberman
         {
             Console.Clear();
             Console.WriteLine("Vous êtes mort ...");
+            Thread.Sleep(500);
         }
 
         /// <summary>
@@ -297,7 +299,7 @@ namespace Application_Bomberman
             if (compteurDeTour >= difficulteIA)
                 {
                     compteurDeTour = 0;
-                    GameObject[,] tableauDeMemoire = CopierTableau(tableauDeJeu);
+                     GameObject[,] tableauDeMemoire = CopierTableau(tableauDeJeu);
 
                     for (int i = 0; i < tableauDeJeu.GetLength(0); i++) //Scan X
                         {
@@ -314,7 +316,9 @@ namespace Application_Bomberman
                                             //Assign variable to memorise the AI position for modification
                                             if (positionIAY > positionJoueurY) //If the AI is below the player
                                                 {
-                                                    positionIAY--; //Decrease is position from 1
+                                                    
+                                                            positionIAY--;
+                                                                             //Decrease is position from 1
                                                 }
                                             else if (positionIAY < positionJoueurY)
                                                 {
@@ -354,5 +358,6 @@ namespace Application_Bomberman
                 }
             return TableauCopie;
         }
+       
     }
 }
