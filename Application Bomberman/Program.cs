@@ -348,7 +348,7 @@ namespace Application_Bomberman
 
         static GameObject[,] CopierTableau(GameObject[,] tableauACopie)
         {
-            GameObject[,] TableauCopie = new GameObject[tableauACopie.GetLength(0),tableauACopie.GetLength(1)];
+            GameObject[,] TableauCopie = new GameObject[tableauACopie.GetLength(0), tableauACopie.GetLength(1)];
             for (int i = 0; i < TableauCopie.GetLength(0); i++)
                 {
                     for (int j = 0; j < TableauCopie.GetLength(1); j++)
@@ -358,6 +358,6 @@ namespace Application_Bomberman
                 }
             return TableauCopie;
         }
-       
+
     }
 }
